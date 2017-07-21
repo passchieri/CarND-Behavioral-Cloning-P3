@@ -1,12 +1,9 @@
-#**Behavioral Cloning** 
-
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+# Behavioral Cloning 
+Author: **Igor Passchier**
 
 ---
 
-**Behavioral Cloning Project**
+# Goals 
 
 The goals / steps of this project are the following:
 * Use the simulator to collect data of good driving behavior
@@ -18,7 +15,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
+[image1]: ./pictures/network.png "Model Visualization"
 [image2]: ./examples/placeholder.png "Grayscaling"
 [image3]: ./examples/placeholder_small.png "Recovery Image"
 [image4]: ./examples/placeholder_small.png "Recovery Image"
