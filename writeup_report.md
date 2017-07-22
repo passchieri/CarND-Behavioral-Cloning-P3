@@ -19,6 +19,11 @@ The following sections will address the [rubric points](https://review.udacity.c
 [model]: ./pictures/network.png "Model Visualization"
 [training1]: ./pictures/training_nodropout.png "Training performance without Dropout"
 [training2]: ./pictures/training_withdropout.png "Training performance with Dropout"
+[center]: ./pictures/center.png "Center camera image"
+[left]: ./pictures/left.png "Left camera image"
+[right]: ./pictures/right.png "Right camera image"
+[cropped]: ./pictures/cropped.png "Cropped camera image"
+[flipped]: ./pictures/flipped.png "Flipped camera image"
 
 ## Required Files
 
@@ -59,9 +64,11 @@ After several modifications and trials (see later), I finally decided to use the
 A dropout layer is added after every convolution layer. The images below show the training performance with and without dropout. Due to the early termination that has been implemented, the number of epochs is different for the 2 training sessions
 
 ![Training without Dropout][training1]
+
 *Training without Dropout*
 
 ![Training with Dropout][training2]
+
 *Training with Dropout implemented*
 
 #### Model parameter tuning
@@ -74,61 +81,65 @@ Another parameter in the model is to determine how much the stearing angle of le
 bit larger when moving off the center of the track.
 
 #### Appropriate training data
+I created several training sets. The first set is from several laps trying to stay in the center. This is more difficult than it seems, 
+which results in some bad training data. I have made provisions to remove those, by just deleting the center images and skipping them 
+while reading in the images, but in the end did not have to use this. A second training set contains a lap in the opposite direction, and 
+short intervals of steering back to the center from either the left or the right.
 
+The code is capable of reading training data from multiple directories, so I can easily combine them to see the effect. In this way, I 
+could also include the sample training data, combined with my own training data.
 
-### Architecture and Training Strategy
+I have augmented the training data by using also the left and right camera images, with a modified stearing angle (see previous section). 
+Futhermore, I have flipped all images. 
+
+![Left image][left]
+
+*Image from the left camera*
+
+![Center image][center]
+
+*Image from the cneter camera*
+
+![Right image][right]
+
+*Image from the Right camera*
+
+The full paths, (modified) steering angle, and need to flip are all stored in seperate arrays. These are then split in training and 
+validation sets. Futher, generators are used to actually read the images, flip if required, and provide the X and y values used in 
+training and validation.
+
+The images are also cropped (part of top and bottom is removed), but this is not done in the image pre-processing, but in the model. In this way, no preprocessing needs to be added to the drive.py code.
+
+![Cropped image][cropped]
+
+*Cropped image from the center camera*
+
+![Flipped image][flipped]
+
+*Flipped image from the center camera*
+
 
 #### Solution Design 
 
-The overall strategy for deriving a model architecture was to ...
+I have build up the model in several steps, to understand what was actually hapening. The first serious model I used was based on Lenet. 
+This did not give a stable driving experience. I modified the size of the first convolution kernel, as the images we are using and the 
+features in the images are much larger than 32x32. However, this did not really solved the instabilities in the driving. Therefore, I 
+switched to a network inspired on the NVidia network, suggested in the lesson and also used in our own autonomous test vehicle with 
+DrivePX platform. 
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
-
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+With the Dropout implemented as well and sufficient training data, this resulted in a smooth training and also good driving result for 
+track 1. I also tried on track 2, but if the model is only trained on track 1, this fails already at the first corner. Without track 2 
+training data, this will not work. Furthermore, maybe the cropping of the image need to be modified, because when going up hill, the 
+cropping will likely remove relevant features. I have not worked this out in detail.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
-#### Model Architecture
-
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
-#### Creation of the Training Set & Training Process
-
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
-
-![alt text][image2]
-
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
-
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
-
 ## Simulation
 ### Test of the trained model
+The provided video shows that the final model keeps the vehicle nicely on the road at 9 Mph. 
+
+I have tried to incease the driving speed to 15 Mph, see additional video. What can be observed, is that the vehicle sometimes start to 
+*oscilate*, i.e. going from left to right and back again on the track. This means that the stearing is to aggresive. To prevent this, the 
+training and control should either include both stearing and set_speed, or a more advanced model has to be added after the output of the 
+neural network. I have tried to multiply the stearing output with a constant factor, but that is clearly too simple: the factor need to be 
+applied to the stearing rate, not to the stearing angle itself. I have not investigated this further.
