@@ -138,10 +138,12 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 ## Simulation
 ### Test of the trained model
-The provided video shows that the final model keeps the vehicle nicely on the road at 9 Mph. 
+The provided [video](video.mp4) shows that the final model keeps the vehicle nicely on the road at 9 Mph. 
 
-I have tried to incease the driving speed to 15 Mph, see additional video. What can be observed, is that the vehicle sometimes start to 
-*oscilate*, i.e. going from left to right and back again on the track. This means that the stearing is to aggresive. To prevent this, the 
-training and control should either include both stearing and set_speed, or a more advanced model has to be added after the output of the 
-neural network. I have tried to multiply the stearing output with a constant factor, but that is clearly too simple: the factor need to be 
+I have tried to incease the driving speed to 15 Mph, see additional [video](video15.mp4). What can be observed, is that the vehicle 
+sometimes start to *oscilate*, i.e. going from left to right and back again on the track. See e.g. at 11 seconds in the video. This means 
+that the stearing is to aggresive. To prevent this, the 
+training and control should either include both stearing and set_speed to have this fixed by the neural network, or a more advanced model 
+has to be added after the output of the neural network. I have tried to multiply the stearing output with a constant factor, but that is 
+clearly too simple: the factor need to be 
 applied to the stearing rate, not to the stearing angle itself. I have not investigated this further.
