@@ -28,7 +28,7 @@ The following sections will address the [rubric points](https://review.udacity.c
 
 ## Required Files
 
-#### Submission includes all required files and can be used to run the simulator in autonomous mode
+### Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following required files:
 * [model.py](model.py) containing the script to create and train the model
