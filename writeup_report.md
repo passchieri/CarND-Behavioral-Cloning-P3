@@ -51,7 +51,9 @@ main process to create,train, and save the results are documented with normal co
 ### Model Architecture and Training Strategy
 
 #### An appropriate model architecture has been employed
-After several modifications and trials (see later), I finally decided to use the [https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/][Nvidia network]. It consists of 5 convolutional layers with Relu activation. The first 3 also have a MaxPooling layer. This is followed by a flattening and 3 Fully connected layers. The final output is the stearing angle for the vehicle.
+After several modifications and trials (see later), I finally decided to use the [https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/](Nvidia network). It consists of 5 convolutional layers with Relu activation. The first 3 also have a MaxPooling layer. This is followed by a flattening and 3 Fully connected layers. The final output is the stearing angle for the vehicle. The model is represented in the figure below:
+
+![Model][model]
 
 #### Reducing overfitting in the model
 A dropout layer is added after every 
