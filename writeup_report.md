@@ -25,20 +25,22 @@ The following sections will address the [rubric points](https://review.udacity.c
 [cropped]: ./pictures/cropped.png "Cropped camera image"
 [flipped]: ./pictures/flipped.png "Flipped camera image"
 
+
 ## Required Files
 
 #### Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following required files:
-* model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode. This file is unmodified from the supplied version.
-* model.h5 containing a trained convolution neural network 
-* writeup_report.md summarizing the results (this document)
+* [model.py](model.py) containing the script to create and train the model
+* [drive.py](drive.py) for driving the car in autonomous mode. This file is unmodified from the supplied version.
+* [model.h5](model.h5) containing a trained convolution neural network 
+* [writeup_report.md](writeup_report.md) summarizing the results (this document)
+* [video.mp4](video.mp4) The video of the autonomous test drive on track 1
 
 In addition, I have supplied the following additional files:
-* epoch1.h5 Trained version of the model after 1 epoch, without Dropout
-* epoch3.h5 Trained version of the model after 3 epochs, without Dropout
-* output_speed15.mp4 Video of the result, driving at 15 mph instead of 9 mph
+* [epoch1.h5](epoch1.h5) Trained version of the model after 1 epoch, without Dropout
+* [epoch3.h5](epoch3.h5) Trained version of the model after 3 epochs, without Dropout
+* [video15.mp4](video15.mp4) Video of the result, driving at 15 mph instead of 9 mph
 
 ## Quality of Code
 ### Code is functional
@@ -63,16 +65,13 @@ After several modifications and trials (see later), I finally decided to use the
 #### Reducing overfitting in the model
 A dropout layer is added after every convolution layer. The images below show the training performance with and without dropout. Due to the early termination that has been implemented, the number of epochs is different for the 2 training sessions
 
-<table>
-<tr><td>
 ![Training without Dropout][training1] 
 
 *Training without Dropout* 
-</td><td>
+
 ![Training with Dropout][training2]
 
 *Training with Dropout implemented*
-</td></tr></table>
 
 #### Model parameter tuning
 I tuned the batch size, to match the memory of the graphics card. With the final version of the model, a batch size of 64 was the optimum.
