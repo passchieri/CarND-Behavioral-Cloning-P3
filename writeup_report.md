@@ -56,19 +56,25 @@ After several modifications and trials (see later), I finally decided to use the
 ![Model][model]
 
 #### Reducing overfitting in the model
-A dropout layer is added after every 
+A dropout layer is added after every convolution layer. The images below show the training performance with and without dropout. Due to the early termination that has been implemented, the number of epochs is different for the 2 training sessions
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+![Training without Dropout][training1]
+*Training without Dropout*
+
+![Training with Dropout][training2]
+*Training with Dropout implemented*
 
 #### Model parameter tuning
+I tuned the batch size, to match the memory of the graphics card. With the final version of the model, a batch size of 64 was the optimum.
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned.
+
+Another parameter in the model is to determine how much the stearing angle of left and right camera images is changed. I have tried 0.1, 
+0.2, and 0.4. Although difficult to really see the effect systematically, I decided to fix it to 0.4. This seems to make the corrections a 
+bit larger when moving off the center of the track.
 
 #### Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
-
-For details about how I created the training data, see the next section. 
 
 ### Architecture and Training Strategy
 
