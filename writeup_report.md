@@ -63,13 +63,8 @@ After several modifications and trials (see later), I finally decided to use the
 #### Reducing overfitting in the model
 A dropout layer is added after every convolution layer. The images below show the training performance with and without dropout. Due to the early termination that has been implemented, the number of epochs is different for the 2 training sessions
 
-![Training without Dropout][training1]
-
-*Training without Dropout*
-
-![Training with Dropout][training2]
-
-*Training with Dropout implemented*
+| ![Training without Dropout][training1] | ![Training with Dropout][training2] |
+| *Training without Dropout* | *Training with Dropout implemented* |
 
 #### Model parameter tuning
 I tuned the batch size, to match the memory of the graphics card. With the final version of the model, a batch size of 64 was the optimum.
