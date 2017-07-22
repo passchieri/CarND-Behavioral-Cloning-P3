@@ -16,13 +16,9 @@ The following sections will address the [rubric points](https://review.udacity.c
 
 [//]: # (Image References)
 
-[image1]: ./pictures/network.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[model]: ./pictures/network.png "Model Visualization"
+[training1]: ./pictures/training_nodropout.png "Training performance without Dropout"
+[training2]: ./pictures/training_withdropout.png "Training performance with Dropout"
 
 ## Required Files
 
@@ -45,23 +41,22 @@ Using the Udacity provided simulator and my drive.py file, the car can be driven
 ```sh
 ./drive.py model.h5
 ```
-The training data is collected on a mac, using the mac version of the simulator, while the training has been done on an AWS g2x2 Ubuntu virtual machine.
+The training data is collected on a mac, using the mac version of the simulator, while the training has been done on an AWS g2x2large Ubuntu virtual machine.
 
 ### Usable and Readable code
 
-The model.py file contains the code for training and saving the convolution neural network. It contains the code to augment the images, and the model definition, and the code to perform the training of the model.
+The model.py file contains the code for training and saving the convolution neural network. It contains the code to augment the images, and the model definition, and the code to perform the training of the model. The support functions are all documented with docstrings, the
+main process to create,train, and save the results are documented with normal comments.
 
 ### Model Architecture and Training Strategy
 
 #### An appropriate model architecture has been employed
+After several modifications and trials (see later), I finally decided to use the [Nvidia network](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars). It consists of 5 convolutional layers with Relu activation. The first 3 also have a MaxPooling layer. This is followed by a flattening and 3 Fully connected layers. The final output is the stearing angle for the vehicle. The model is represented in the figure below:
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
-
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+![Model][model]
 
 #### Reducing overfitting in the model
-
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+A dropout layer is added after every 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
